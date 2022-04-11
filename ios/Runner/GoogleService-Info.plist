@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1058512772499-2f93fc4c2ns8qc7t5asamvr7b25b1akf.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1058512772499-2f93fc4c2ns8qc7t5asamvr7b25b1akf</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1058512772499-0bh4p7ohn10aduvd4vrk4i6rpn128p3v.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC8ZoWu8LgJkmpY82LKhjrWeGooegSzdcc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1058512772499</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.circle.mycircleapp</string>
+	<key>PROJECT_ID</key>
+	<string>konnect-my-circle-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>konnect-my-circle-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1058512772499:ios:4afcb6fa43081749425c66</string>
+	<key>DATABASE_URL</key>
+	<string>https://konnect-my-circle-app-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
