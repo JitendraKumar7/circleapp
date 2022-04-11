@@ -1,6 +1,7 @@
 import 'package:circle/app/app.dart';
 import 'package:circle/modal/modal.dart';
 import 'package:circle/widget/widget.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,30 +24,16 @@ class _AddBroadcastState extends State<AddBroadcast> {
     var profile = context.read<ProfileModal>();
     var args = ModalRoute.of(context)?.settings.arguments;
     var snapshot = args as QueryDocumentSnapshot<CircleModal>;
+    debugPrint('${profile.name}');
 
-    print('${profile.name}');
     return Scaffold(
       appBar: AppBar(title: Text('Add Broadcast'.toUpperCase())),
       body: ListView(padding: EdgeInsets.all(18), children: [
-
-        ImagePickerWidget(
-          photo: modal.photo,
-          name: modal.documentId,
-          upload: Upload.BROADCAST,
-          assets: 'assets/default/offer.jpg',
-          updated: (String? path) => setState(() {
-            modal.photo = path;
-            print('BROADCAST done ${modal.photo}');
-          }),
-
-        ),
-         Text("Attach Image", textAlign: TextAlign.center, style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
-
         SizedBox(height: 18),
         TextFormField(
           decoration: InputDecoration(
             errorText: modal.errorName,
-            labelText: 'Name',
+            labelText: 'Title',
             helperText: '',
           ),
           keyboardType: TextInputType.name,
@@ -59,12 +46,55 @@ class _AddBroadcastState extends State<AddBroadcast> {
           maxLines: 6,
           decoration: InputDecoration(
             errorText: modal.errorDescription,
-            labelText: 'Description',
+            labelText: 'Text',
             helperText: '',
           ),
           keyboardType: TextInputType.multiline,
           onChanged: (String value) => modal.description = value,
           controller: TextEditingController(text: modal.description),
+        ),
+        SizedBox(height: 18),
+        if (false)
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Column(children: [
+              ImagePickerWidget(
+                radius: 60,
+                photo: modal.photo,
+                name: modal.documentId,
+                upload: Upload.BROADCAST,
+                assets: 'assets/default/broadcast.png',
+                updated: (String? path) => setState(() {
+                  modal.photo = path;
+                  print('BROADCAST done ${modal.photo}');
+                }),
+              ),
+              Text(
+                "Attach Image",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.blue),
+              ),
+            ]),
+          ]),
+        FilePickerWidget(
+          name: modal.documentId,
+          upload: Upload.BROADCAST,
+          updated: (String? path) => setState(() {
+            modal.file = path;
+            print('BROADCAST DONE ${modal.file}');
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text('File'),
+                content: Text('File attached successfully'),
+                actions: [
+                  TextButton(
+                    child: const Text('Close'),
+                    onPressed: () => Navigator.of(context).pop(),
+                  )
+                ],
+              ),
+            );
+          }),
         ),
         SizedBox(height: 18),
         ElevatedButton(
@@ -78,6 +108,22 @@ class _AddBroadcastState extends State<AddBroadcast> {
                 .broadcast(snapshot.reference)
                 .doc(modal.documentId)
                 .set(modal);
+
+            db.sendBroadNotifications(snapshot);
+
+            await showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text('BROADCAST'),
+                content: Text('BROADCAST Add successfully'),
+                actions: [
+                  TextButton(
+                    child: const Text('Close'),
+                    onPressed: () => Navigator.of(context).pop(),
+                  )
+                ],
+              ),
+            );
 
             Navigator.of(context, rootNavigator: true).pop(true);
             print('BROADCAST => $modal');

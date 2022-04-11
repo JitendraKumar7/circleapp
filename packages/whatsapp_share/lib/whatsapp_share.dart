@@ -20,7 +20,7 @@ class WhatsappShare {
     String _package;
     _package = package.index == 0 ? 'com.whatsapp' : 'com.whatsapp.w4b';
     final bool success =
-        await _channel.invokeMethod('isInstalled', <String, dynamic>{
+    await _channel.invokeMethod('isInstalled', <String, dynamic>{
       'package': _package,
     });
     return success;
@@ -30,7 +30,6 @@ class WhatsappShare {
   /// - Text: Is the [text] of the message.
   /// - LinkUrl: Is the [linkUrl] to include with the message.
   /// - Phone: is the [phone] contact number to share with.
-
   static Future<bool> share({
     required String phone,
     required String text,
@@ -82,7 +81,7 @@ class WhatsappShare {
     _package = package.index == 0 ? 'com.whatsapp' : 'com.whatsapp.w4b';
 
     final bool success =
-        await _channel.invokeMethod('shareFile', <String, dynamic>{
+    await _channel.invokeMethod('shareFile', <String, dynamic>{
       'title': ' ',
       'text': text,
       'filePath': filePath,

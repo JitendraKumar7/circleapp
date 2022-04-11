@@ -32,8 +32,8 @@ class BroadcastModal extends BaseModal {
       return true;
     }
 
-    if ((photo?.isEmpty ?? true) && (description?.isEmpty ?? true)) {
-      errorDescription = 'photo or description any one required';
+    if ((file?.isEmpty ?? true) && (photo?.isEmpty ?? true) && (description?.isEmpty ?? true)) {
+      errorDescription = 'file, photo or description any one required';
       return true;
     }
     return false;

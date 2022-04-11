@@ -1,6 +1,86 @@
+import 'dart:io';
+
 import 'package:circle/app/app.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+class FilePickerWidget extends StatefulWidget {
+  final Function(String? path) updated;
+  final Upload upload;
+  final String? name;
+
+  const FilePickerWidget({
+    Key? key,
+    this.name,
+    required this.upload,
+    required this.updated,
+  }) : super(key: key);
+
+  @override
+  State<FilePickerWidget> createState() => _FilePickerWidgetState();
+}
+
+class _FilePickerWidgetState extends State<FilePickerWidget> {
+  Future<bool> onPressed() async {
+    var result = await FilePicker.platform.pickFiles(
+      onFileLoading: (value) => print('status $value'),
+    );
+    if (result != null) {
+      File file = File(result.files.single.path ?? '');
+      if (result.files.single.path != null) {
+        int bytes = await file.length();
+        final kb = bytes / 1024;
+        final mb = kb / 1024;
+
+        debugPrint('kb => $kb, mb => $mb');
+        if (mb > 2) {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('File'),
+              content: const Text('File is large 2MB'),
+              actions: [
+                TextButton(
+                  child: const Text('Close'),
+                  onPressed: () => Navigator.of(context).pop(),
+                )
+              ],
+            ),
+          );
+          return false;
+        }
+        setState(() => showLoading = true);
+        var storage = StorageService();
+        var path = await storage.uploadImage(
+          upload: widget.upload,
+          name: widget.name,
+          file: file,
+        );
+        widget.updated(path);
+        setState(() => showLoading = false);
+      }
+    }
+    return true;
+  }
+
+  var showLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return showLoading
+        ? Container(
+            child: CupertinoActivityIndicator(),
+            alignment: Alignment.center,
+            height: 60,
+          )
+        : TextButton.icon(
+            onPressed: onPressed,
+            icon: Icon(Icons.attach_file),
+            label: Text('Attach File'),
+          );
+  }
+}
 
 class ImagePickerWidget extends StatefulWidget {
   final Function(String? path) updated;
@@ -121,11 +201,9 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                           fit: BoxFit.contain,
                         ),
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    border: Border.all(color: Colors.red)
-
-                  ),
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                      border: Border.all(color: Colors.red)),
                 )
               : widget.child,
     );

@@ -10,16 +10,19 @@ class EditBroadcast extends StatefulWidget {
 }
 
 class _EditBroadcastState extends State<EditBroadcast> {
-  late QueryDocumentSnapshot<BroadcastModal> snapshot;
-  late BroadcastModal modal;
+  QueryDocumentSnapshot<BroadcastModal>? snapshot;
+  var modal = BroadcastModal();
 
   @override
   void initState() {
     super.initState();
 
-    var args = ModalRoute.of(context)?.settings.arguments;
-    snapshot = args as QueryDocumentSnapshot<BroadcastModal>;
-    modal = snapshot.data();
+    Future.delayed(Duration.zero, () {
+      var args = ModalRoute.of(context)?.settings.arguments;
+      snapshot = args as QueryDocumentSnapshot<BroadcastModal>;
+      modal = snapshot?.data() ?? BroadcastModal();
+      setState(() => true);
+    });
   }
 
   @override
@@ -33,7 +36,7 @@ class _EditBroadcastState extends State<EditBroadcast> {
           photo: modal.photo,
           name: modal.documentId,
           upload: Upload.BROADCAST,
-          assets: 'assets/default/offer.jpg',
+          assets: 'assets/default/broadcast.png',
           updated: (String? path) => setState(() {
             modal.photo = path;
             print('BROADCAST done ${modal.photo}');
@@ -43,7 +46,7 @@ class _EditBroadcastState extends State<EditBroadcast> {
         TextFormField(
           decoration: InputDecoration(
             errorText: modal.errorName,
-            labelText: 'Name',
+            labelText: 'Title',
             helperText: '',
           ),
           keyboardType: TextInputType.name,
@@ -56,7 +59,7 @@ class _EditBroadcastState extends State<EditBroadcast> {
           maxLines: 6,
           decoration: InputDecoration(
             errorText: modal.errorDescription,
-            labelText: 'Description',
+            labelText: 'Text',
             helperText: '',
           ),
           keyboardType: TextInputType.multiline,
@@ -71,7 +74,7 @@ class _EditBroadcastState extends State<EditBroadcast> {
               return;
             }
 
-            await snapshot.reference.set(modal);
+            await snapshot?.reference.set(modal);
 
             Navigator.of(context, rootNavigator: true).pop(true);
             print('BROADCAST => $modal');

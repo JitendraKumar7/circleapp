@@ -24,7 +24,7 @@ dependencies:
   photo_view: ^0.13.0
   timer_button: ^2.0.0
   flutter_html: ^2.2.1
-  flutter_bloc: ^8.0.1
+  flutter_bloc: ^7.3.3
   google_fonts: ^2.3.1
   url_launcher: ^6.0.20
   image_picker: ^0.8.4+11

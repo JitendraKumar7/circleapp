@@ -27,7 +27,7 @@ class _ViewCircleState extends State<ViewCirclePage> {
         (QueryDocumentSnapshot<ContactModal> document) async {
       var modal = document.data();
 
-      if (modal.referenceId == null) {
+      /*if (modal.referenceId == null) {
         var _profile = await db.profile
             .where(
               'phoneNumber',
@@ -45,7 +45,7 @@ class _ViewCircleState extends State<ViewCirclePage> {
       else {
         var _reference = await db.profile.doc(modal.referenceId).get();
         modal.profileModal = _reference.data() ?? ProfileModal();
-      }
+      }*/
 
       _contacts.add(modal);
     });

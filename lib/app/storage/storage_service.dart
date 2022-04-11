@@ -46,8 +46,28 @@ class StorageService {
         reference = _instance.ref('default');
         break;
     }
-    var fileName = file.path.split('/').last;
-    reference = reference.child(name == null ? fileName : '$name.jpg');
+
+    var filePath = file.path;
+
+    String fileShowText = '';
+    String title = '';
+    String type = '';
+
+    int i = filePath.lastIndexOf('/');
+    if (i <= -1) {
+      fileShowText = filePath;
+    } else {
+      fileShowText = filePath.substring(i + 1);
+    }
+
+    int j = fileShowText.lastIndexOf('.');
+
+    if (j > -1) {
+      title = fileShowText.substring(0, j);
+      type = fileShowText.substring(j + 1).toLowerCase();
+    }
+
+    reference = reference.child(name == null ? '$title.$type' : '$name.$type');
 
     await reference.putFile(file);
     return await reference.getDownloadURL();

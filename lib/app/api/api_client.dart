@@ -49,64 +49,21 @@ Future<void> sentOtp(ProfileModal profile, otp) async {
   }
 }
 
-Future<void> sentMessage(ContactModal contact, String message,
-    [bool otp = true]) async {
+Future<void> sentMessage(ContactModal contact, String message) async {
   var uri = Uri.parse('http://sms.sunstechit.com/app/smsapi/index.php');
 
-  if (contact.countryCode == '+91') {
-    var body = <String, String>{
-      'template_id': '1207161718630433560',
-      'key': '55E19BF769A898',
-      'campaign': '0',
-      'routeid': '13',
-      'type': 'text',
-      'senderid': 'KMCOTP',
-      'contacts': '${contact.phoneNumber}',
-      'msg': message,
-    };
-    var _response = await http.post(uri, body: body);
-    print({'body : $body', '_response : ${_response.body}'});
-  }
-  // international
-  else {
-    var url = 'https://api.authkey.io/request?authkey=274fe0c2c29ec224'
-        '&country_code=${contact.countryCode?.replaceAll('+', '')}'
-        '&mobile=${contact.phoneNumber}&sender=KMCOTP'
-        '&sms=$message';
-
-    var _response = await http.get(Uri.parse(url));
-    print({'international : ${_response.body}'});
-  }
-}
-
-Future<void> sentMessage1(ContactModal contact, String message,
-    [bool otp = true]) async {
-  var uri = Uri.parse('http://sms.sunstechit.com/app/smsapi/index.php');
-
-  if (contact.countryCode == '+91') {
-    var body = <String, String>{
-      'template_id': '1207164639654046611',
-      'key': '55E19BF769A898',
-      'campaign': '0',
-      'routeid': '13',
-      'type': 'text',
-      'senderid': 'CIRAPP',
-      'contacts': '${contact.phoneNumber}',
-      'msg': message,
-    };
-    var _response = await http.post(uri, body: body);
-    print({'body : $body', '_response : ${_response.body}'});
-  }
-  // international
-  else {
-    var url = 'https://api.authkey.io/request?authkey=274fe0c2c29ec224'
-        '&country_code=${contact.countryCode?.replaceAll('+', '')}'
-        '&mobile=${contact.phoneNumber}&sender=KMCOTP'
-        '&sms=$message';
-
-    var _response = await http.get(Uri.parse(url));
-    print({'international : ${_response.body}'});
-  }
+  var body = <String, String>{
+    'template_id': '1207164639660410405',
+    'key': '55E19BF769A898',
+    'campaign': '0',
+    'routeid': '13',
+    'type': 'text',
+    'senderid': 'CIRAPP',
+    'contacts': '${contact.phoneNumber}',
+    'msg': message,
+  };
+  var response = await http.post(uri, body: body);
+  print({'body : $body', 'response : ${response.body}'});
 }
 
 Future<http.Response> sendWhatsAppMessage(String? phoneNumber, String message) {

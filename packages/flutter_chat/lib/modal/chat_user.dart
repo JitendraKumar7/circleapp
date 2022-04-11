@@ -61,11 +61,13 @@ class ChatUser {
   }
 
   ChatUser.fromJson(DataSnapshot data) {
-     /*conversionUserId = data.value['conversionUserId'];
-      currentUserId = data.value['currentUserId'];
-      referenceId = data.value['referenceId'];
-      timestamp = data.value['timestamp'];
-      message = data.value['message'];*/
+   /*
+   conversionUserId = data.value['conversionUserId'];
+    currentUserId = data.value['currentUserId'];
+    referenceId = data.value['referenceId'];
+    timestamp = data.value['timestamp'];
+    message = data.value['message'];
+    */
   }
 
   @override

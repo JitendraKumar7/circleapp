@@ -82,13 +82,22 @@ class FirestoreService {
     var circle = snapshot.data();
     var admin = await profile.doc(circle.createdBy).get();
 
+
+    //@Pankaj Hey congrats
+    // {#var#}
+    // has added  your mobile no {#var#}in a{#var#} {#var#} in circle app
+    //
+    // Link https://bit.ly/3JOeBZM
+    //
+    // template ID : 1207164639660410405
+    // sender ID : CIRCAP,BISAPP,CIRAPP
     var message = 'Hey congrats\n\n'
-   '${admin.get('name')?.toUpperCase()}'
-    ' circle app has added your mobile no ${contact.phone} in a ${circle.name?.toUpperCase()} \n\n'
-    'Link https://bit.ly/3JOeBZM';
+        '${admin.get('name')?.toUpperCase()} '
+        'has added your mobile no ${contact.phone} in a ${circle.name?.toUpperCase()} in circle app\n\n'
+        'Link https://bit.ly/3JOeBZM';
 
     // TODO [Required more information] CIRAPP
-    api.sentMessage1(contact, message);
+    api.sentMessage(contact, message);
 
     //\\https://konnectmycircle.com
     message = 'Hey congrats !\n\n'
@@ -106,6 +115,27 @@ class FirestoreService {
           title: 'NEW CIRCLE MEMBER JOINED',
           message:
               'has just now added a new member ${contact.phone} in ${circle.name?.toUpperCase()} in ${contact.category}.');
+
+      increment(viewerId, 'notificationCounter');
+      await notifications.add(notify);
+    });
+    return true;
+  }
+
+  Future<bool> sendBroadNotifications(
+     QueryDocumentSnapshot<CircleModal> snapshot,
+  ) async {
+    var circle = snapshot.data();
+    var admin = await profile.doc(circle.createdBy).get();
+
+    await Future.forEach(circle.references, (String viewerId) async {
+      var notify = Notifications(
+          senderId: admin.reference.id,
+          viewerId: viewerId,
+          type: 'addBroadcast',
+          title: 'NEW BROADCAST',
+          message:
+              'has just now added a new broadcast in ${circle.name?.toUpperCase()}.');
 
       increment(viewerId, 'notificationCounter');
       await notifications.add(notify);
