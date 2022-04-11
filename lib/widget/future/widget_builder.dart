@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:loading_animations/loading_animations.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class FutureWidgetBuilder<T> extends StatelessWidget {
   final Widget Function(T?) builder;
@@ -19,8 +18,12 @@ class FutureWidgetBuilder<T> extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<T> snapshot) =>
             snapshot.hasData
                 ? builder(snapshot.data)
-                : Center(child: LoadingBouncingGrid.square()),
-                //: Center(child: CupertinoActivityIndicator()),
+                : const Center(
+                    child: SpinKitCircle(
+                      color: Colors.blue,
+                    ),
+                  ),
+        //: Center(child: CupertinoActivityIndicator()),
       );
 }
 
@@ -40,7 +43,9 @@ class StreamWidgetBuilder<T> extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<T> snapshot) =>
             snapshot.hasData
                 ? builder(snapshot.data)
-                : Center(child: LoadingBouncingGrid.square()),
-                //: Center(child: CupertinoActivityIndicator()),
+                : const Center(
+                    child: SpinKitSquareCircle(color: Colors.blue),
+                  ),
+        //: Center(child: CupertinoActivityIndicator()),
       );
 }

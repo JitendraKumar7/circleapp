@@ -45,22 +45,24 @@ class _BroadcastPageState extends State<BroadcastPage> {
                 : ListView(
                     padding: EdgeInsets.only(bottom: 48),
                     children: modal.docs.reversed
-                        .map((e) =>
-                            ItemView(e, profile: profile, createdBy: circle.createdBy))
+                        .map((e) => ItemView(e,
+                            profile: profile, createdBy: circle.createdBy))
                         .toList(),
                   );
           }),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () async {
-          var _result = await Navigator.pushNamed(
-            context,
-            ADD_BROADCAST,
-            arguments: widget.snapshot,
-          );
-          if (_result != null) setState(() => print('BROADCAST'));
-        },
-      ),
+      floatingActionButton: circle.createdBy == profile.id
+          ? FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () async {
+                var _result = await Navigator.pushNamed(
+                  context,
+                  ADD_BROADCAST,
+                  arguments: widget.snapshot,
+                );
+                if (_result != null) setState(() => print('BROADCAST'));
+              },
+            )
+          : null,
     );
   }
 }
@@ -171,7 +173,8 @@ class ItemView extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   colorFilter: ColorFilter.mode(
-                    Colors.grey.shade50.withOpacity(0.5),
+                    // TODO [background color broadcast]
+                    Colors.blue.shade100.withOpacity(0.5),
                     BlendMode.dstATop,
                   ),
                   image: AssetImage('assets/message_bg.png'),

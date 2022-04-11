@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
-import 'package:uuid/uuid.dart';
 
 class MessageUser {
   var message;
@@ -31,12 +30,18 @@ class MessageUser {
   var key;
 
   MessageUser.fromJson(DataSnapshot data) {
-      timestamp = data.value['timestamp'];
+      /*timestamp = data.value['timestamp'];
       senderId = data.value['senderId'];
       imageUrl = data.value['imageUrl'];
       fileUrl = data.value['fileUrl'];
       message = data.value['message'];
-      key = data.key;
+      key = data.key;*/
+
+    /*timestamp = data.child('timestamp').value;
+      senderId = data.child('senderId').value;
+      imageUrl = data.child('imageUrl').value;
+      fileUrl = data.child('fileUrl').value;
+      message = data.child('message').value;*/
   }
 
   @override

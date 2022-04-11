@@ -179,7 +179,7 @@ class OfferChildView extends StatelessWidget {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     colorFilter: ColorFilter.mode(
-                      Colors.grey.shade50.withOpacity(0.5),
+                      Colors.blue.shade100.withOpacity(0.5),
                       BlendMode.dstATop,
                     ),
                     image: AssetImage('assets/message_bg.png'),

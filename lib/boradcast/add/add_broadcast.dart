@@ -28,6 +28,7 @@ class _AddBroadcastState extends State<AddBroadcast> {
     return Scaffold(
       appBar: AppBar(title: Text('Add Broadcast'.toUpperCase())),
       body: ListView(padding: EdgeInsets.all(18), children: [
+
         ImagePickerWidget(
           photo: modal.photo,
           name: modal.documentId,
@@ -37,7 +38,10 @@ class _AddBroadcastState extends State<AddBroadcast> {
             modal.photo = path;
             print('BROADCAST done ${modal.photo}');
           }),
+
         ),
+         Text("Attach Image", textAlign: TextAlign.center, style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+
         SizedBox(height: 18),
         TextFormField(
           decoration: InputDecoration(

@@ -1,7 +1,6 @@
 import 'package:circle/modal/modal.dart';
 import 'package:http/http.dart' as http;
 
-
 Future<void> sentOtp(ProfileModal profile, otp) async {
   var uri = Uri.parse('http://sms.sunstechit.com/app/smsapi/index.php');
   var sms = 'Dear ${profile.name}, your mobile verification code is $otp, '
@@ -32,6 +31,9 @@ Future<void> sentOtp(ProfileModal profile, otp) async {
       'contacts': '${profile.phoneNumber}',
       'msg': sms,
     };
+    print(uri);
+    print(body);
+
     var _response = await http.post(uri, body: body);
     print({'body : $body', '_response : ${_response.body}'});
   }
@@ -47,7 +49,8 @@ Future<void> sentOtp(ProfileModal profile, otp) async {
   }
 }
 
-Future<void> sentMessage(ContactModal contact, String message) async {
+Future<void> sentMessage(ContactModal contact, String message,
+    [bool otp = true]) async {
   var uri = Uri.parse('http://sms.sunstechit.com/app/smsapi/index.php');
 
   if (contact.countryCode == '+91') {
@@ -58,6 +61,36 @@ Future<void> sentMessage(ContactModal contact, String message) async {
       'routeid': '13',
       'type': 'text',
       'senderid': 'KMCOTP',
+      'contacts': '${contact.phoneNumber}',
+      'msg': message,
+    };
+    var _response = await http.post(uri, body: body);
+    print({'body : $body', '_response : ${_response.body}'});
+  }
+  // international
+  else {
+    var url = 'https://api.authkey.io/request?authkey=274fe0c2c29ec224'
+        '&country_code=${contact.countryCode?.replaceAll('+', '')}'
+        '&mobile=${contact.phoneNumber}&sender=KMCOTP'
+        '&sms=$message';
+
+    var _response = await http.get(Uri.parse(url));
+    print({'international : ${_response.body}'});
+  }
+}
+
+Future<void> sentMessage1(ContactModal contact, String message,
+    [bool otp = true]) async {
+  var uri = Uri.parse('http://sms.sunstechit.com/app/smsapi/index.php');
+
+  if (contact.countryCode == '+91') {
+    var body = <String, String>{
+      'template_id': '1207164639654046611',
+      'key': '55E19BF769A898',
+      'campaign': '0',
+      'routeid': '13',
+      'type': 'text',
+      'senderid': 'CIRAPP',
       'contacts': '${contact.phoneNumber}',
       'msg': message,
     };

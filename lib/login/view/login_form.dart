@@ -1,3 +1,4 @@
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:circle/app/app.dart';
 import 'package:circle/forgot/forgotten_password.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:circle/login/login.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:formz/formz.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -39,6 +41,17 @@ class LoginForm extends StatelessWidget {
               _ForgottenButton(),
               const SizedBox(height: 9),
               _LoginButton(),
+              const SizedBox(height: 9),
+            SignInWithAppleButton(
+              onPressed: () async {
+                final credential = await signInWithApple();
+
+                debugPrint('Apple ID Credential $credential');
+
+                // Now send the credential (especially `credential.authorizationCode`) to your server to create a session
+                // after they have been validated with Apple (see `Integration` section for more information on how to do this)
+              },
+            ),
               const SizedBox(height: 9),
               _GoogleLoginButton(),
               const SizedBox(height: 6),

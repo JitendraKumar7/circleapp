@@ -107,8 +107,10 @@ class _ViewCircleState extends State<ViewCirclePage> {
           bottom: TabBar(tabs: tabs, isScrollable: true),
           actions: [
             IconButton(
-                onPressed: () =>
-                    Navigator.push(context, BroadcastPage.page(snapshot)),
+                onPressed: () {
+
+                  Navigator.push(context, BroadcastPage.page(snapshot));
+                },
                 icon: Icon(Icons.message))
           ],
         ),
@@ -152,13 +154,9 @@ class _ViewCircleState extends State<ViewCirclePage> {
             ? FloatingActionButton(
                 child: Icon(Icons.add),
                 onPressed: () async {
-                  final id = context.read<ProfileModal>().id;
-                  final index = DefaultTabController.of(context)?.index;
-                  var isBroadcast = index == 0 && circle.createdBy == id;
-
                   var _result = await Navigator.pushNamed(
                     context,
-                    isBroadcast ? ADD_BROADCAST : ADD_CONTACT,
+                    ADD_CONTACT,
                     arguments: snapshot,
                   );
                   if (_result != null) setState(() => print('Contacts'));
@@ -247,10 +245,7 @@ class _ViewCircleState extends State<ViewCirclePage> {
                     maxLines: 1,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Text(
-                    '  ${profile.getBusinessCategory ?? contact.category}',
-                    maxLines: 1,
-                  ),
+                  Text('  ${profile.getBusinessCategory ?? contact.category}',maxLines: 1,),
                   if (!profile.businessLocation.isEmpty)
                     Row(
                         crossAxisAlignment: CrossAxisAlignment.start,

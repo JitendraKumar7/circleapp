@@ -123,6 +123,8 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white,
+                    border: Border.all(color: Colors.red)
+
                   ),
                 )
               : widget.child,

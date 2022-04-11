@@ -351,7 +351,7 @@ class ShareOnWhatsApp extends StatelessWidget {
                         child: Text(
                           'click here',
                           style: TextStyle(
-                            fontSize: 24,
+                            fontSize: 15,
                             color: Colors.blue,
                           ),
                         ),
@@ -367,13 +367,14 @@ class ShareOnWhatsApp extends StatelessWidget {
                     ),
                     TextSpan(text: ' after that share on '),
                   ]),
-              style: TextStyle(fontSize: 15),
+              style: TextStyle(fontSize: 13),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 9),
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                 const SizedBox(height: 40),
                   IconButton(
                     iconSize: 42,
                     onPressed: () => _onPressed(Package.whatsapp),
@@ -387,6 +388,7 @@ class ShareOnWhatsApp extends StatelessWidget {
                     onPressed: () => _onPressed(Package.businessWhatsapp),
                     icon: Image.asset('assets/whatsapp_business.png'),
                   ),
+                const SizedBox(height: 40),
                 ]),
           ]),
         ),

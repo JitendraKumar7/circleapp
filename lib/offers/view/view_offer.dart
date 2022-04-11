@@ -151,4 +151,5 @@ class _ViewOfferState extends State<ViewOfferPage> {
       }
     }
   }
+
 }

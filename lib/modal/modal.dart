@@ -13,4 +13,3 @@ export 'notification/notification.dart';
 
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
-export 'package:google_mobile_ads/google_mobile_ads.dart';

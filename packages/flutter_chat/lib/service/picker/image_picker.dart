@@ -13,7 +13,7 @@ class ImageCropPicker {
     var pickedFile = await picker.pickImage(source: source);
 
     if (pickedFile == null) return null;
-    return await ImageCropper.cropImage(
+    return await ImageCropper().cropImage(
       aspectRatioPresets: [
         CropAspectRatioPreset.square,
         CropAspectRatioPreset.original,

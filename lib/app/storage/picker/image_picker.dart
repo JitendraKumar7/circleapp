@@ -6,11 +6,12 @@ import 'package:image_cropper/image_cropper.dart';
 
 class ImageCropPicker {
   final picker = ImagePicker();
-
   Future<File?> pickImage({required bool isCamera}) async {
     var source = isCamera ? ImageSource.camera : ImageSource.gallery;
-    //var device = isCamera ? CameraDevice.rear : CameraDevice.front;
+    // var device = isCamera ? CameraDevice.rear : CameraDevice.front;
     var pickedFile = await picker.pickImage(source: source);
+    debugPrint('Take Image');
+    print(source);
 
     //sharing -- inside app
     //
@@ -39,7 +40,8 @@ class ImageCropPicker {
           ],
       */
     if (pickedFile == null) return null;
-    return await ImageCropper.cropImage(
+    debugPrint('picked Image ${pickedFile.path}');
+    return await ImageCropper().cropImage(
       aspectRatioPresets: [
         CropAspectRatioPreset.square,
         CropAspectRatioPreset.original,

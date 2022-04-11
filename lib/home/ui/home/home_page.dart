@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:circle/app/app.dart';
 import 'package:circle/constant/constant.dart';
-import 'package:circle/google_mobile_ads/ads.dart';
 import 'package:circle/home/bloc/home_bloc.dart';
 import 'package:circle/home/index.dart';
 import 'package:circle/modal/modal.dart';
@@ -14,7 +13,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomeState();
 }
 
-class _HomeState extends State<HomePage> with BannerAdState {
+class _HomeState extends State<HomePage> {
   final db = FirestoreService();
   late ProfileModal _profile;
 
@@ -137,7 +136,6 @@ class _HomeState extends State<HomePage> with BannerAdState {
             ? SliderBuilder()
             : StatefulBuilder(builder: (_, setState) {
                 return ListView(children: [
-                  getBanner(),
                   ...data
                       .map((item) => CircleView(item, _profile, (bool isAdmin) {
                             showDialog(

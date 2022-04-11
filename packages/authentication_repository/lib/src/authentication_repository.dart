@@ -138,6 +138,14 @@ class AuthenticationRepository {
     }
   }
 
+  Future<void> signInWithCredential(firebase_auth.AuthCredential oauthCredential) async {
+    try {
+      await _firebaseAuth.signInWithCredential(oauthCredential );
+    } on Exception {
+      throw LogInWithEmailAndPasswordFailure();
+    }
+  }
+
   /// Signs out the current user which will emit
   /// [User.empty] from the [user] Stream.
   ///
