@@ -25,6 +25,8 @@ class _FilePickerWidgetState extends State<FilePickerWidget> {
   Future<bool> onPressed() async {
     var result = await FilePicker.platform.pickFiles(
       onFileLoading: (value) => print('status $value'),
+      allowedExtensions: ['png', 'jpg', 'jpeg', 'pdf'],
+      type: FileType.custom,
     );
     if (result != null) {
       File file = File(result.files.single.path ?? '');

@@ -79,8 +79,9 @@ class _AddBroadcastState extends State<AddBroadcast> {
           name: modal.documentId,
           upload: Upload.BROADCAST,
           updated: (String? path) => setState(() {
-            modal.file = path;
-            print('BROADCAST DONE ${modal.file}');
+            if (path == null) return;
+            path.endsWith('.pdf') ? modal.file = path : modal.photo = path;
+            debugPrint('BROADCAST DONE ${modal.file}');
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
